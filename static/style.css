@@ -1,0 +1,222 @@
+:root {
+    --primary: #6366f1;
+    --secondary: #a855f7;
+    --accent: #22d3ee;
+    --bg: #0f172a;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text: #f1f5f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: medium;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+#blob {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: var(--primary);
+    filter: blur(120px);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.15;
+    animation: move 20s infinite alternate;
+}
+
+@keyframes move {
+    from {
+        transform: translate(-10%, -10%);
+    }
+    to {
+        transform: translate(20%, 20%);
+    }
+}
+
+
+nav {
+    position: sticky;
+    top: 20px;
+    margin: 0 2rem;
+    padding: 1rem 2rem;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+nav>h1 {
+    font-weight: 800;
+    font-size: 1.5rem;
+    background: linear-gradient(to right, var(--accent), var(--secondary));
+    background-clip: text;
+    color:  transparent;
+}
+
+nav>p {
+    font-size: 0.9rem;
+    opacity: 0.5;
+}
+
+#container {
+    width: 100%;
+    margin: 4rem auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+#toolbox, #content {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toolbox_bloc {
+    margin-bottom: 1.5rem;
+}
+
+#toolbox h3 {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+input, select {
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--glass-border);
+    padding: 0.8rem;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Fira Code', monospace;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: var(--accent);
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+.toolbox_bloc>button {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+.toolbox_bloc>button:hover {
+    box-shadow: 0 10px 20px rgba(34, 211, 238, 0.3);
+}
+
+form>select {
+    margin-top: 7px;
+}
+
+#arbre {
+    width: 100%;
+    /* height: ; */
+}
+
+/* Design du SVG à compléter */
+
+#stats_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+#stats_container>div {
+    background: rgba(255,255,255,0.02);
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+}
+
+#stats_container h3 {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+#stats_container p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+#browse_container {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #00000044;
+    border-radius: 12px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    border-left: 4px solid var(--secondary);
+}
+
+strong, #display_browse_type {
+    font-weight: bold;
+}
+
+#display_browse_list {
+    color: var(--accent);
+}

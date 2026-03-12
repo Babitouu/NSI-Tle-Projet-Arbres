@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌳 ArbreViz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- for dev --> <link rel="stylesheet" href="../static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script>let tree = {{ tree|tojson }};</script>
+</head>
+<body>
+    <div id="blob"></div>
+
+    <nav>
+        <h1>🌳 ArbreViz</h1>
+        <p>Projet Terminale NSI</p>
+    </nav>
+
+    <div id="container">
+        <aside id="toolbox">
+            <h2>Configuration</h2>
+            <div class="toolbox_bloc">
+                <h3>Valeurs et Type de l'arbre</h3>
+                <form action="/" method="post">
+                    <input type="text" name="value" id="input_values" required>
+                    <select name="type" id="input_type" required>
+                        <option value="" disabled selected>Sélection du type</option>
+                        <option value="default">Arbre Binaire générique</option>
+                        <option value="search">Arbre Binaire de Recherche</option>
+                    </select>
+                    <button type="submit" name="init" value="true">Générer l'Arbre</button>
+                </form>
+            </div>
+            {% if tree_type_search %}
+                <div class="toolbox_bloc">
+                    <h3>Rechercher une valeur</h3>
+                    <input type="number" id="input_search">
+                    <button onclick="search()">Rechercher</button>
+                </div>
+            {% endif %}
+            {% if tree %}
+                <div class="toolbox_bloc">
+                    <h3>Parcourir l'arbre</h3>
+                    <select id="browse_type">
+                        <option value="" disabled selected>Sélection du parcours</option>
+                        <option value="prefixe">Préfixe</option>
+                        <option value="infixe">Infixe</option>
+                        <option value="suffixe">Suffixe</option>
+                        <option value="largeur">Largeur</option>
+                    </select>
+                    <button onclick="browse()">Parcourir</button>
+                </div>
+            {% endif %}
+        </aside>
+        <main id="content">
+            <h2>Affichage de l'arbre</h2>
+            <svg id="arbre"></svg>
+            <div id="stats_container">
+                <div>
+                    <h3>Hauteur</h3>
+                    <p id="height">-</p>
+                </div>
+                <div>
+                    <h3>Taille</h3>
+                    <p id="size">-</p>
+                </div>
+            </div>
+            <div id="browse_container">
+                <p><strong>Parcours <span id="display_browse_type"></span> :</strong> <span id="display_browse_list"></span></p>
+            </div>
+        </main>
+    </div>
+    <footer>© 2026 : Romain TIBEAUD et Cédric VILLEMONAIS</footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌳 ArbreViz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h1 id="nav_logo">🌳 ArbreViz</h1>
+        <p id="nav_info">Projet Terminale NSI | Romain TIBEAUD et Cédric VILLEMONAIS</p>
+    </nav>
+
+    <div id="container">
+        <aside id="toolbox">
+            <h2>Configuration</h2>
+            <div class="toolbox_bloc">
+                <h3>Valeurs et Type de l'arbre</h3>
+                <form action="/" method="post">
+                    <input type="text" name="tree_values" id="input_values" required>
+                    <select name="tree_type" id="input_type" required>
+                        <option value="" disabled selected>Sélection du type de l'arbre</option>
+                        <option value="default">Arbre Binaire générique</option>
+                        <option value="search">Arbre Binaire de Recherche</option>
+                    </select>
+                    <input type="submit" name="init" value="Générer l'Arbre" id="submit_values_type">
+                </form>
+            </div>
+            <div class="toolbox_bloc">
+                <h3>Rechercher une valeur</h3>
+                {% if tree_type_search %}
+                    <form action="/" method="post">
+                    </form>
+                {% else %}
+                    <div class="warning">La recherche n'est disponible que pour les arbres binaires de recherche</div>
+                {% endif %}
+            </div>
+
+            
+            <div class="toolbox_bloc"></div>
+        </aside>
+        <main id="content">
+            <h2>Affichage de l'arbre</h2>
+        </main>
+    </div>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

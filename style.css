@@ -27,6 +27,10 @@ body {
     overflow-x: hidden;
 }
 
+.display_none {
+    display: none;
+}
+
 #blob {
     position: fixed;
     width: 500px;

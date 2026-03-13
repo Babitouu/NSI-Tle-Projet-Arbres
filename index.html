@@ -25,36 +25,32 @@
             <h2>Configuration</h2>
             <div class="toolbox_bloc">
                 <h3>Valeurs et Type de l'arbre</h3>
-                <form action="./" method="post">
-                    <input type="text" name="value" id="input_values" required>
+                <form id="form_values_type" method="dialog">
+                    <input type="text" id="input_values" required>
                     <select name="type" id="input_type" required>
                         <option value="" disabled selected>Sélection du type</option>
                         <option value="default">Arbre Binaire</option>
                         <option value="search">Arbre Binaire de Recherche</option>
                     </select>
-                    <button type="submit" name="init" value="true">Générer l'Arbre</button>
+                    <button type="submit">Générer l'Arbre</button>
                 </form>
             </div>
-            {% if tree_type_search %}
-                <div class="toolbox_bloc">
-                    <h3>Rechercher une valeur</h3>
-                    <input type="number" id="input_search">
-                    <button onclick="search()">Rechercher</button>
-                </div>
-            {% endif %}
-            {% if tree %}
-                <div class="toolbox_bloc">
-                    <h3>Parcourir l'arbre</h3>
-                    <select id="browse_type">
-                        <option value="" disabled selected>Sélection du parcours</option>
-                        <option value="prefixe">Préfixe</option>
-                        <option value="infixe">Infixe</option>
-                        <option value="suffixe">Suffixe</option>
-                        <option value="largeur">Largeur</option>
-                    </select>
-                    <button onclick="browse()">Parcourir</button>
-                </div>
-            {% endif %}
+            <div class="toolbox_bloc display_none" id="search_div">
+                <h3>Rechercher une valeur</h3>
+                <input type="number" id="input_search">
+                <button onclick="">Rechercher</button>
+            </div>
+            <div class="toolbox_bloc display_none" id="browse_div">
+                <h3>Parcourir l'arbre</h3>
+                <select id="browse_type">
+                    <option value="" disabled selected>Sélection du parcours</option>
+                    <option value="prefixe">Préfixe</option>
+                    <option value="infixe">Infixe</option>
+                    <option value="suffixe">Suffixe</option>
+                    <option value="largeur">Largeur</option>
+                </select>
+                <button onclick="">Parcourir</button>
+            </div>
         </aside>
         <main id="content">
             <h2>Affichage de l'arbre</h2>

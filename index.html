@@ -39,19 +39,23 @@
             </div>
             <div class="toolbox_bloc display_none" id="search_div">
                 <h3>Rechercher une valeur</h3>
-                <input type="number" id="input_search">
-                <button onclick="">Rechercher</button>
+                <form id="form_search" method="dialog">
+                    <input type="number" id="input_search" required>
+                    <button type="submit">Rechercher</button>
+                </form>
             </div>
             <div class="toolbox_bloc display_none" id="browse_div">
                 <h3>Parcourir l'arbre</h3>
-                <select id="browse_type">
-                    <option value="" disabled selected>Sélection du parcours</option>
-                    <option value="prefixe">Préfixe</option>
-                    <option value="infixe">Infixe</option>
-                    <option value="suffixe">Suffixe</option>
-                    <option value="largeur">Largeur</option>
-                </select>
-                <button onclick="">Parcourir</button>
+                <form id="form_browse" method="dialog">
+                    <select id="input_browse" required>
+                        <option value="" disabled selected>Sélection du parcours</option>
+                        <option value="prefixe">Préfixe</option>
+                        <option value="infixe">Infixe</option>
+                        <option value="suffixe">Suffixe</option>
+                        <option value="largeur">Largeur</option>
+                    </select>
+                    <button type="submit">Parcourir</button>
+                </form>
             </div>
         </aside>
         <main id="content">

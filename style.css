@@ -84,7 +84,7 @@ nav>p {
 
 #container {
     width: 100%;
-    margin: 4rem auto;
+    margin-top: 2.8rem;
     padding: 0 20px;
     display: grid;
     grid-template-columns: 350px 1fr;
@@ -92,7 +92,7 @@ nav>p {
 }
 
 @media (max-width: 900px) {
-    .container {
+    #container {
         grid-template-columns: 1fr;
     }
 }
@@ -244,12 +244,27 @@ option::checkmark {
     color: var(--accent);
 }
 
-#arbre {
+#tree {
     width: 100%;
-    /* height: ; */
+    user-select: none;
+    touch-action: none;
+    overflow: hidden;
+    height: 425px;
 }
 
-/* Design du SVG à compléter */
+.svg_link {
+    stroke: #f1f5f9;
+    stroke-width: 2;
+    opacity: 0.2;
+}
+
+.node-text {
+    fill: #f1f5f9;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 
 #stats_container {
     display: grid;
@@ -293,4 +308,11 @@ strong, #display_browse_type {
 
 #display_browse_list {
     color: var(--accent);
+}
+
+footer {
+    margin-top: 10px;
+    padding-right: 10px;
+    width: 100%;
+    text-align: right;
 }

@@ -12,6 +12,8 @@
     <!-- PyScript -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css" />
     <script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
+    <!-- SVG Zoom : https://github.com/anvaka/panzoom -->
+    <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
 </head>
 <body>
     <div id="blob"></div>
@@ -60,7 +62,12 @@
         </aside>
         <main id="content">
             <h2>Affichage de l'arbre</h2>
-            <svg id="arbre"></svg>
+            <svg id="tree">
+                <g id="tree_content">
+                    <g id="tree_links"></g>
+                    <g id="tree_nodes"></g>
+                </g>
+            </svg>
             <div id="stats_container">
                 <div>
                     <h3>Hauteur</h3>
@@ -78,7 +85,14 @@
     </div>
     <footer>© 2026 : Romain TIBEAUD et Cédric VILLEMONAIS</footer>
 
-
+    <script>
+        panzoom(document.getElementById("tree_content"),{
+            maxZoom: 10,
+            minZoom: 0.3,
+            bounds: true,
+            boundsPadding: 0.1
+        });
+    </script>
     <script type="py" src="./main.py"></script>
 </body>
 </html>

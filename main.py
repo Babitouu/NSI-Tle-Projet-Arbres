@@ -204,16 +204,16 @@ class Arbre:
         if self.estVide():
             return []
         resultat = []
-        file = deque([self])
-        while file:
-            tmp = file.popleft()
-            resultat.append(tmp.valeur())
-            gauche = tmp.gauche()
+        file = deque([self]) # on initialise la file avec la racine de l'arbre, c'est le seul element de son niveau
+        while file: # tant qu'il y a des elements dans la file
+            tmp = file.popleft() # on defile le premier element de la file qui est necessairement le noeud le plus a gauche du niveau actuel ou au dessus
+            resultat.append(tmp.valeur()) # on ajoute la valeur du noeud a la liste resultat
+            gauche = tmp.gauche() 
             droite = tmp.droit()
-            if gauche and not gauche.estVide():
-                file.append(gauche)
-            if droite and not droite.estVide():
-                file.append(droite)
+            if gauche and not gauche.estVide(): # si le sous-arbre gauche existe et n'est pas vide
+                file.append(gauche) # alors on l'enfile pour le traiter plus tard, il sera traite apres tous les noeuds du niveau actuel ou au dessus
+            if droite and not droite.estVide(): # si le sous-arbre droit existe et n'est pas vide
+                file.append(droite) # alors on l'enfile pour le traiter plus tard, il sera traite apres tous les noeuds du niveau actuel ou au dessus et apres le sous-arbre gauche du meme niveau
         return resultat
 
     def rechercher(self, valeur):

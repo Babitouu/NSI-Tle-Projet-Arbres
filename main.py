@@ -4,8 +4,10 @@ from pyscript import web, when, display, document
 from js import console, ResizeObserver
 # Import de l'outil permettant de créer un proxy Python utilisable côté JavaScript
 from pyodide.ffi import create_proxy
+# Import du module d'expressions régulières
+import re
 # Import du module local de gestion des arbres
-import arbre
+from arbre import *
 
 # Récupération des formulaires présents dans la page
 form_values_type = web.page["#form_values_type"]
@@ -26,6 +28,13 @@ browse_div = web.page["#browse_div"]
 svg_tree = web.page["#tree"]
 svg_tree_links = web.page["#tree_links"]
 svg_tree_nodes = web.page["#tree_nodes"]
+
+# Récupération des éléments pour l'affichage de la hauteur, de la taille et du parcours
+display_browse_list = web.page["#display_browse_list"]
+display_height = web.page["#height"]
+display_size = web.page["#size"]
+
+tree = Arbre()
 
 # Gestion de la soumission du formulaire principal (valeurs + type d'arbre)
 @when("submit", form_values_type)
@@ -69,7 +78,7 @@ def submit_form_browse():
     form_browse.reset()
 
 # Fonction de génération de l'arbre dans le SVG (liens + nœuds)
-def generate_tree(values, type):
+def generate_tree(type):
     # Chaînes HTML/SVG qui vont accumuler tous les éléments graphiques
     links = ""
     nodes = ""
@@ -80,7 +89,7 @@ def generate_tree(values, type):
     # Cas d'affichage d'un arbre binaire classique
     if type == "default":
         # Calcul de la hauteur de l'arbre, puis de l'échelle horizontale utilisée pour placer les nœuds
-        h = hauteur(values)
+        h = tree.hauteur()
         px_par_unite = width / (2 ** (h + 1))
 
         # Parcours par niveau (r = rang du niveau)

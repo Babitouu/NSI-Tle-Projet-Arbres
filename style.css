@@ -1,3 +1,4 @@
+/* Variables */
 :root {
     --primary: #6366f1;
     --secondary: #a855f7;
@@ -9,6 +10,7 @@
     --text: #f1f5f9;
 }
 
+/* Code de réinitialisation des styles par défaut */
 * {
     margin: 0;
     padding: 0;
@@ -18,6 +20,7 @@
     font-size: medium;
 }
 
+/* Code du corps de la page : Police, arrière plan, couleur du texte, hauteur et espacement entre les lignes */
 body {
     font-family: 'Inter', Arial, sans-serif;
     background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
@@ -28,10 +31,12 @@ body {
     overflow-x: hidden;
 }
 
+/* Code pour cacher des éléments dynamiquement */
 .display_none {
     display: none;
 }
 
+/* Code de l'élèment en arrière plan (Un cercle de 500px de diamètre en arrière plan, flouté et annimé) */
 #blob {
     position: fixed;
     width: 500px;
@@ -44,6 +49,7 @@ body {
     animation: move 20s infinite alternate;
 }
 
+/* Annimation du cercle (des déplacements) */
 @keyframes move {
     from {
         transform: translate(-10%, -10%);
@@ -53,7 +59,7 @@ body {
     }
 }
 
-
+/* Varre de navigation : positionnement, taille, arrière plan, bordures et placements des éléments à l'intérieur */
 nav {
     position: sticky;
     top: 20px;
@@ -69,19 +75,22 @@ nav {
     z-index: 1000;
 }
 
+/* Titre de la barre de navigation : Épaisseur, taille, arrière plan et couleur */
 nav>h1 {
     font-weight: 800;
     font-size: 1.5rem;
     background: linear-gradient(to right, var(--accent), var(--secondary));
     background-clip: text;
-    color:  transparent;
+    color: transparent;
 }
 
+/* Description de la barre de navigation : Taille et opacitée */
 nav>p {
     font-size: 0.9rem;
     opacity: 0.5;
 }
 
+/* Conteneur principal : Taille, marges et disposition en grille */
 #container {
     width: 100%;
     margin-top: 2.8rem;
@@ -91,12 +100,14 @@ nav>p {
     gap: 2rem;
 }
 
+/* Changement de la grille sur mobile */
 @media (max-width: 900px) {
     #container {
         grid-template-columns: 1fr;
     }
 }
 
+/* Deux sous-conteneurs : arrière plan, bordure, marges et ombres */
 #toolbox, #content {
     background: var(--glass);
     backdrop-filter: blur(10px);
@@ -106,6 +117,7 @@ nav>p {
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
+/* Titre des sous-conteneurs : Taille, marge, épaisseur et positionnement */
 h2 {
     margin-bottom: 1.5rem;
     font-weight: 700;
@@ -115,10 +127,12 @@ h2 {
     gap: 10px;
 }
 
+/* Marge entre les formulaires du menu configuration */
 .toolbox_bloc {
     margin-bottom: 1.5rem;
 }
 
+/* Titre des formulaires du menu configuration */
 #toolbox h3 {
     display: block;
     margin-bottom: 0.5rem;
@@ -127,6 +141,7 @@ h2 {
     color: #94a3b8;
 }
 
+/* Ėléments des formulaires du menu configuration */
 input, select {
     width: 100%;
     background: rgba(0,0,0,0.2);
@@ -139,10 +154,12 @@ input, select {
     transition: 0.3s;
 }
 
+/* Bordule en focus */
 input:focus, select:focus {
     border-color: var(--accent);
 }
 
+/* Boutons des formulaires du menu configuration */
 button {
     width: 100%;
     padding: 1rem;
@@ -156,25 +173,18 @@ button {
     margin-top: 10px;
 }
 
+/* Ombre et déplacement au survol */
 button:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
 }
 
-.toolbox_bloc>button {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-}
-
-.toolbox_bloc>button:hover {
-    box-shadow: 0 10px 20px rgba(34, 211, 238, 0.3);
-}
-
+/* Marges des sélecteurs */
 form>select {
     margin-top: 7px;
 }
 
+/* Changement du style par défaut des sélecteurs */
 select, ::picker(select) {
     appearance: base-select;
 }
@@ -244,6 +254,7 @@ option::checkmark {
     color: var(--accent);
 }
 
+/* SVG - Arbre : Taille et retrait des actions de sélection utilisateur */
 #tree {
     width: 100%;
     user-select: none;
@@ -252,12 +263,14 @@ option::checkmark {
     height: 425px;
 }
 
+/* Arbre - Liens entre les nœuds : Couleur et taille */
 .svg_link {
     stroke: #f1f5f9;
     stroke-width: 2;
     opacity: 0.2;
 }
 
+/* Abre - Nœuds : Couleur, police, taille et épaisseur */
 .node-text {
     fill: #f1f5f9;
     font-family: 'Segoe UI', sans-serif;
@@ -265,7 +278,7 @@ option::checkmark {
     font-weight: bold;
 }
 
-
+/* Conteneur des statistiques : Affichage en grille, espacement et marge haute */
 #stats_container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -273,6 +286,7 @@ option::checkmark {
     margin-top: 1.5rem;
 }
 
+/* Cartes de statistiques : Arrière plan, espacement intérieur, bordures et arrondis */
 #stats_container>div {
     background: rgba(255,255,255,0.02);
     padding: 1rem;
@@ -280,18 +294,21 @@ option::checkmark {
     border: 1px solid var(--glass-border);
 }
 
+/* Titres des statistiques : Taille, couleur et transformation en majuscules */
 #stats_container h3 {
     font-size: 0.7rem;
     color: #94a3b8;
     text-transform: uppercase;
 }
 
+/* Valeurs des statistiques : Taille, épaisseur et couleur */
 #stats_container p {
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--accent);
 }
 
+/* Bloc du parcours : Marges, espacement intérieur, arrière plan, bordure et police */
 #browse_container {
     margin-top: 1.5rem;
     padding: 1rem;
@@ -302,14 +319,17 @@ option::checkmark {
     border-left: 4px solid var(--secondary);
 }
 
+/* Mise en évidence du type de parcours : Texte en gras */
 strong, #display_browse_type {
     font-weight: bold;
 }
 
+/* Liste du parcours affiché : Couleur d'accent */
 #display_browse_list {
     color: var(--accent);
 }
 
+/* Bas de page : Marges, taille et positionnement */
 footer {
     margin-top: 10px;
     padding-right: 10px;

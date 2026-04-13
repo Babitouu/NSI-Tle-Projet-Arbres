@@ -73,7 +73,7 @@ def submit_form_search():
 # Gestion de la soumission du formulaire de parcours
 @when("submit", form_browse)
 def submit_form_browse():
-    console.log("Parcours demandé : ",input_browse.value)
+    display_browse_list.textContent = eval("tree.parcours_"+input_browse.value+"()")
     # Réinitialisation du formulaire après traitement
     form_browse.reset()
 

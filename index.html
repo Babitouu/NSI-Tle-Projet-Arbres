@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Encodage en UTF-8 et prise en charge du responsive -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titre et icone de la page -->
     <title>ArbreViz</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Intégration du fichier des styles -->
     <link rel="stylesheet" href="./style.css">
+    <!-- Google Fonts - Pour la police Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <!-- PyScript -->
+    <!-- PyScript - Pour le python-->
     <link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css" />
     <script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
-    <!-- SVG Zoom : https://github.com/anvaka/panzoom -->
+    <!-- SVG Zoom : https://github.com/anvaka/panzoom - Pour zoomer dans le svg (l'arbre) -->
     <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
 </head>
 <body>
+    <!-- Rond fixé en arrière plan pour ajouter un effet de couleur -->
     <div id="blob"></div>
 
+    <!-- Barre de navigation avec le logo, le titre et la description -->
     <nav>
         <svg width="38.391" height="38.391" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 26V14M16 20L22 16M16 18L10 14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="9" r="5" fill="var(--accent)"/><circle cx="23" cy="15" r="4" fill="var(--secondary)"/><circle cx="9" cy="13" r="3.5" fill="var(--third)"/> </svg>
         <h1>ArbreViz</h1>
         <p>Projet Terminale NSI</p>
     </nav>
 
+    <!-- Conteneur principal de la page -->
     <div id="container">
+        <!-- Boite à outils pour la configuration sur le côté -->
         <aside id="toolbox">
+            <!-- Titre -->
             <h2>Configuration</h2>
+            <!-- Partie avec le formulaire permettant de renseigner l'arbre ainsi que le type de l'arbre -->
             <div class="toolbox_bloc">
                 <h3>Valeurs et Type de l'arbre</h3>
                 <form id="form_values_type" method="dialog">
@@ -39,6 +49,7 @@
                     <button type="submit">Générer l'Arbre</button>
                 </form>
             </div>
+            <!-- Partie avec le formulaire permettant la recherche d'une valeur dans le cas d'un ABR -->
             <div class="toolbox_bloc display_none" id="search_div">
                 <h3>Rechercher une valeur</h3>
                 <form id="form_search" method="dialog">
@@ -46,6 +57,7 @@
                     <button type="submit">Rechercher</button>
                 </form>
             </div>
+            <!-- Partie avec le formulaire permettant de sélectionner le parcours de l'arbre -->
             <div class="toolbox_bloc display_none" id="browse_div">
                 <h3>Parcourir l'arbre</h3>
                 <form id="form_browse" method="dialog">
@@ -60,31 +72,44 @@
                 </form>
             </div>
         </aside>
+        <!-- Partie principale avec le svg (l'arbre) et les informations associés -->
         <main id="content">
+            <!-- Titre -->
             <h2>Affichage de l'arbre</h2>
+            <!-- L'arbre -->
             <svg id="tree">
+                <!-- Le conteneur principal -->
                 <g id="tree_content">
+                    <!-- Conteneur des liens entre les éléments -->
                     <g id="tree_links"></g>
+                    <!-- Conteneur des éléments -->
                     <g id="tree_nodes"></g>
                 </g>
             </svg>
+            <!-- Conteneur des détails de l'arbre -->
             <div id="stats_container">
+                <!-- Hauteur de l'arbre -->
                 <div>
                     <h3>Hauteur</h3>
                     <p id="height">-</p>
                 </div>
+                <!-- Taille de l'arbre -->
                 <div>
                     <h3>Taille</h3>
                     <p id="size">-</p>
                 </div>
             </div>
+            <!-- Conteneur du parcours de l'arbre -->
             <div id="browse_container">
                 <p><strong>Parcours <span id="display_browse_type"></span> :</strong> <span id="display_browse_list"></span></p>
             </div>
         </main>
     </div>
+
+    <!-- Bas de page avec le copyright -->
     <footer>© 2026 : Romain THIBEAUD et Cédric VILLEMONAIS</footer>
 
+    <!-- Script permettant le zoom dans le svg (l'arbre) -->
     <script>
         panzoom(document.getElementById("tree_content"),{
             maxZoom: 10,
@@ -93,6 +118,8 @@
             boundsPadding: 0.1
         });
     </script>
+    
+    <!-- Intégration du script python -->
     <script type="py" src="./main.py"></script>
 </body>
 </html>

@@ -46,13 +46,30 @@ def submit_form_values_type():
         if "display_none" in search_div.classes:
             search_div.classes.remove("display_none")
 
-    # Génération d'un arbre de démonstration (en attendant la prise en compte directe des valeurs saisies)
-    generate_tree([1,2,3,4,5,6,7], input_type.value)
+    # Génération de l'arbre
+    liste = [
+        float(x) if "." in x else int(x)
+        for x in re.sub(r"[^0-9,.\-]", "", input_values.value).split(",")
+        if x
+    ]
 
-    # Exemple de génération avec les valeurs du formulaire (laisser commenté pendant les tests)
-    # generate_tree(input_values.value, input_type.value)
-    # Exemple de log de debug des valeurs saisies
-    # console.log("La valeur est : ",input_values.value," et le type de l'arbre est : ",input_type.value)
+    global tree
+
+    if len(liste) > 0 and liste[0] != "":
+        if input_type.value == "search":
+            tree = Arbre(Node(liste[0]))
+            liste.pop(0)
+            for elt in liste:
+                tree.inserer(elt)
+        
+        display_height.textContent = tree.hauteur()
+        display_size.textContent = tree.taille()
+    
+    else:
+        display_height.textContent = "-"
+        display_size.textContent = "-"
+
+        generate_tree(input_type.value)
 
 # Callback déclenché quand la largeur du SVG change
 def callback(*_):

@@ -21,10 +21,11 @@ svg_tree_nodes = web.page["#tree_nodes"]
 
 @when("submit", form_values_type)
 def submit_form_values_type():
-    if "display_none" in browse_div.classes and input_values.value != "":
-        browse_div.classes.remove("display_none")
-    if "display_none" in search_div.classes and input_type.value == "search":
-        search_div.classes.remove("display_none")
+    if input_values.value != "" and input_type.value == "search":
+        if "display_none" in browse_div.classes:
+            browse_div.classes.remove("display_none")
+        if "display_none" in search_div.classes:
+            search_div.classes.remove("display_none")
     generate_tree([1,2,3,4,5,6,7], input_type.value)
     # generate_tree(input_values.value, input_type.value)
     # console.log("La valeur est : ",input_values.value," et le type de l'arbre est : ",input_type.value)

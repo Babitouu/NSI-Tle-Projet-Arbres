@@ -62,34 +62,40 @@ body {
 /* Varre de navigation : positionnement, taille, arrière plan, bordures et placements des éléments à l'intérieur */
 nav {
     position: sticky;
-    top: 20px;
-    margin: 0 2rem;
-    padding: 1rem 2rem;
+    top: 15px;
+    margin: 0 20px;
+    padding: 10px;
     background: var(--glass);
     backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: 9999px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
 }
 
+nav div {
+    display: flex;
+    align-items: center;
+}
+
 /* Titre de la barre de navigation : Épaisseur, taille, arrière plan et couleur */
-nav>h1 {
+nav h1 {
+    margin-left: 5px;
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     background: linear-gradient(to right, var(--accent), var(--secondary));
     background-clip: text;
     color: transparent;
 }
 
-nav>h1, nav>svg {
+nav h1, nav svg {
     cursor: pointer;
 }
 
 /* Description de la barre de navigation : Taille et opacitée */
-nav>p {
+nav p {
     font-size: 0.9rem;
     opacity: 0.5;
 }
@@ -97,7 +103,7 @@ nav>p {
 /* Conteneur principal : Taille, marges et disposition en grille */
 #container {
     width: 100%;
-    margin-top: 2.8rem;
+    margin-top: 2rem;
     padding: 0 20px;
     display: grid;
     grid-template-columns: 350px 1fr;

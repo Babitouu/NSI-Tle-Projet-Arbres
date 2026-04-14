@@ -63,7 +63,7 @@ body {
 nav {
     position: sticky;
     top: 15px;
-    margin: 0 20px;
+    margin: 0 15px;
     padding: 10px;
     background: var(--glass);
     backdrop-filter: blur(12px);
@@ -90,6 +90,10 @@ nav h1 {
     color: transparent;
 }
 
+#nav_settings {
+    display: none;
+}
+
 nav h1, nav svg {
     cursor: pointer;
 }
@@ -104,10 +108,10 @@ nav p {
 #container {
     width: 100%;
     margin-top: 2rem;
-    padding: 0 20px;
+    padding: 0 15px;
     display: grid;
     grid-template-columns: 350px 1fr;
-    gap: 2rem;
+    gap: 15px;
 }
 
 /* Deux sous-conteneurs : arrière plan, bordure, marges et ombres */
@@ -116,7 +120,7 @@ nav p {
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
-    padding: 2rem;
+    padding: 15px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
@@ -128,13 +132,17 @@ nav p {
     #toolbox {
         position: fixed;
         z-index: 100;
-        width: calc(100% - 40px);
+        width: calc(100% - 30px);
         transform: translateX(-100vw);
         transition: transform 0.5s linear;
     }
 
     #toolbox.container_visible {
         transform: translateX(0);
+    }
+
+    #nav_settings {
+        display: block;
     }
 }
 

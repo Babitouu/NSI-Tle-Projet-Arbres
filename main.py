@@ -36,25 +36,22 @@ display_height = web.page["#height"]
 display_size = web.page["#size"]
 display_values = web.page["#display_values"]
 
-test = web.page["#nav_p"]
-
-@when("click", test)
-def teste():
-    if "container_visible" not in web.page["#toolbox"].classes:
-        web.page["#toolbox"].classes.add("container_visible")
-    else:
-        web.page["#toolbox"].classes.remove("container_visible")
-
-    if "container_visible" not in web.page["#content"].classes:
-        web.page["#content"].classes.add("container_visible")
-    else:
-        web.page["#content"].classes.remove("container_visible")
+toolbox_button = web.page["#nav_settings"]
 
 tree = Arbre()
+
+@when("click", toolbox_button)
+def toolbox_menu():
+    if "container_visible" in web.page["#toolbox"].classes:
+        web.page["#toolbox"].classes.remove("container_visible")
+    else:
+        web.page["#toolbox"].classes.add("container_visible")
 
 # Gestion de la soumission du formulaire principal (valeurs + type d'arbre)
 @when("submit", form_values_type)
 def submit_form_values_type():
+    toolbox_menu()
+
     global tree
 
     values = [
@@ -81,7 +78,9 @@ def submit_form_values_type():
             display_height.textContent = tree.hauteur()
             display_size.textContent = tree.taille()
 
-
+        display_browse_list.textContent = ""
+        display_browse_type.textContent = ""
+        
         generate_tree(input_type.value)
         form_values_type.reset()
 
@@ -108,6 +107,7 @@ observer.observe(document.getElementById("tree"))
 # Gestion de la soumission du formulaire de recherche
 @when("submit", form_search)
 def submit_form_search():
+    toolbox_menu()
     console.log("Recherche demandée pour : ",input_search.value)
     # Réinitialisation du formulaire après traitement
     form_search.reset()
@@ -115,6 +115,7 @@ def submit_form_search():
 # Gestion de la soumission du formulaire de parcours
 @when("submit", form_browse)
 def submit_form_browse():
+    toolbox_menu()
     display_browse_type.textContent = "préfixe" if input_browse.value == "prefixe" else "en largeur" if input_browse.value == "largeur" else input_browse.value
     display_browse_list.textContent = eval("tree.parcours_"+input_browse.value+"()")
     # Réinitialisation du formulaire après traitement

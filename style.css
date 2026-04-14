@@ -8,6 +8,16 @@
     --glass: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
     --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --surface-dark: rgba(0, 0, 0, 0.2);
+    --space: 15px;
+    --tiny-space: 10px;
+    --box-radius: 12px;
+    --radius-md: 16px;
+    --transition-fast: 0.3s;
+    --font-family-normal: 'Inter', Arial, sans-serif;
+    --font-family-select: 'Inter', sans-serif;
+    --font-family-code: 'Fira Code', monospace;
 }
 
 /* Code de réinitialisation des styles par défaut */
@@ -22,7 +32,7 @@
 
 /* Code du corps de la page : Police, arrière plan, couleur du texte, hauteur et espacement entre les lignes */
 body {
-    font-family: 'Inter', Arial, sans-serif;
+    font-family: var(--font-family-normal);
     background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
     background-attachment: fixed;
     color: var(--text);
@@ -62,12 +72,11 @@ body {
 /* Varre de navigation : positionnement, taille, arrière plan, bordures et placements des éléments à l'intérieur */
 nav {
     position: sticky;
-    top: 15px;
-    margin: 0 15px;
+    top: 0;
     padding: 10px;
     background: var(--glass);
     backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
     border-radius: 9999px;
     display: flex;
     justify-content: space-between;
@@ -90,6 +99,10 @@ nav h1 {
     color: transparent;
 }
 
+#display_values {
+    font-family: var(--font-family-code);
+}
+
 #nav_settings {
     display: none;
 }
@@ -107,11 +120,11 @@ nav p {
 /* Conteneur principal : Taille, marges et disposition en grille */
 #container {
     width: 100%;
-    margin-top: 2rem;
-    padding: 0 15px;
+    margin-top: 20px;
+    padding: 0 var(--space);
     display: grid;
     grid-template-columns: 350px 1fr;
-    gap: 15px;
+    gap: var(--space);
 }
 
 /* Deux sous-conteneurs : arrière plan, bordure, marges et ombres */
@@ -120,7 +133,7 @@ nav p {
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
-    padding: 15px;
+    padding: var(--space);
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
@@ -149,12 +162,9 @@ nav p {
 
 /* Titre des sous-conteneurs : Taille, marge, épaisseur et positionnement */
 h2 {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space);
     font-weight: 700;
     font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 #display_values {
@@ -173,20 +183,20 @@ h2 {
     margin-bottom: 0.5rem;
     font-size: 0.8rem;
     text-transform: uppercase;
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 /* Ėléments des formulaires du menu configuration */
 input, select {
     width: 100%;
-    background: rgba(0,0,0,0.2);
+    background: var(--surface-dark);
     border: 1px solid var(--glass-border);
     padding: 0.8rem;
-    border-radius: 12px;
+    border-radius: var(--box-radius);
     color: white;
-    font-family: 'Fira Code', monospace;
+    font-family: var(--font-family-code);
     outline: none;
-    transition: 0.3s;
+    transition: var(--transition-fast);
 }
 
 /* Bordule en focus */
@@ -198,14 +208,14 @@ input:focus, select:focus {
 button {
     width: 100%;
     padding: 1rem;
-    border-radius: 12px;
+    border-radius: var(--box-radius);
     border: none;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
-    margin-top: 10px;
+    transition: var(--transition-fast);
+    margin-top: var(--tiny-space);
 }
 
 /* Ombre et déplacement au survol */
@@ -226,17 +236,17 @@ select, ::picker(select) {
 
 select {
     width: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--surface-dark);
     border: 1px solid var(--glass-border);
     padding: 0.8rem 1rem;
-    border-radius: 12px;
+    border-radius: var(--box-radius);
     color: var(--text);
     cursor: pointer;
-    transition: 0.3s;
+    transition: var(--transition-fast);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family-select);
 }
 
 select:hover {
@@ -248,7 +258,7 @@ select::picker-icon {
     color: var(--accent);
     width: 12px;
     margin-left: auto;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-fast) ease;
 }
 
 select:open::picker-icon {
@@ -258,7 +268,7 @@ select:open::picker-icon {
 ::picker(select) {
     background: var(--bg);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     padding: 8px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     margin-top: 8px;
@@ -317,22 +327,22 @@ option::checkmark {
 #stats_container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: var(--space);
+    margin-top: var(--space);
 }
 
 /* Cartes de statistiques : Arrière plan, espacement intérieur, bordures et arrondis */
 #stats_container>div {
     background: rgba(255,255,255,0.02);
-    padding: 1rem;
-    border-radius: 16px;
+    padding: var(--tiny-space);
+    border-radius: var(--radius-md);
     border: 1px solid var(--glass-border);
 }
 
 /* Titres des statistiques : Taille, couleur et transformation en majuscules */
 #stats_container h3 {
     font-size: 0.7rem;
-    color: #94a3b8;
+    color: var(--text-muted);
     text-transform: uppercase;
 }
 
@@ -345,11 +355,11 @@ option::checkmark {
 
 /* Bloc du parcours : Marges, espacement intérieur, arrière plan, bordure et police */
 #browse_container {
-    margin-top: 1.5rem;
-    padding: 1rem;
+    margin-top: var(--space);
+    padding: var(--tiny-space);
     background: #00000044;
-    border-radius: 12px;
-    font-family: 'Fira Code', monospace;
+    border-radius: var(--box-radius);
+    font-family: var(--font-family-code);
     font-size: 0.85rem;
     border-left: 4px solid var(--secondary);
 }
@@ -366,8 +376,8 @@ strong, #display_browse_type {
 
 /* Bas de page : Marges, taille et positionnement */
 footer {
-    margin-top: 10px;
-    padding-right: 10px;
+    margin-top: var(--tiny-space);
+    padding-right: var(--tiny-space);
     width: 100%;
     text-align: right;
 }

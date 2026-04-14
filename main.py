@@ -57,12 +57,12 @@ def submit_form_values_type():
     values = [
         float(x) if "." in x else int(x)
         for x in re.sub(r"[^0-9,.\-]", "", input_values.value).split(",")
-        if x
+        if x and x != "" and x != "-"
     ]
 
-    display_values.textContent = str(values)
+    display_values.textContent = str(values).replace(",", ", ")
 
-    if len(values) > 0 and values[0] != "":
+    if len(values) > 0:
         # Si c'est un ABR
         if input_type.value == "search":
             tree = Arbre(Node(values[0]))
@@ -80,9 +80,8 @@ def submit_form_values_type():
 
         display_browse_list.textContent = ""
         display_browse_type.textContent = ""
-        
+
         generate_tree(input_type.value)
-        form_values_type.reset()
 
     else:
         display_height.textContent = "-"
@@ -94,6 +93,7 @@ def submit_form_values_type():
             browse_div.classes.add("display_none")
         if "display_none" not in search_div.classes:
             search_div.classes.add("display_none")
+    form_values_type.reset()
 
 # Callback déclenché quand la largeur du SVG change
 def callback(*_):

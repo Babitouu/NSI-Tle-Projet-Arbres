@@ -104,13 +104,6 @@ nav>p {
     gap: 2rem;
 }
 
-/* Changement de la grille sur mobile */
-@media (max-width: 900px) {
-    #container {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* Deux sous-conteneurs : arrière plan, bordure, marges et ombres */
 #toolbox, #content {
     background: var(--glass);
@@ -120,6 +113,25 @@ nav>p {
     padding: 2rem;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
+
+@media (max-width: 900px) {
+    #container {
+        grid-template-columns: 1fr;
+    }
+
+    #toolbox {
+        position: fixed;
+        z-index: 100;
+        width: calc(100% - 40px);
+        transform: translateX(-100vw);
+        transition: transform 0.5s linear;
+    }
+
+    #toolbox.container_visible {
+        transform: translateX(0);
+    }
+}
+
 
 /* Titre des sous-conteneurs : Taille, marge, épaisseur et positionnement */
 h2 {

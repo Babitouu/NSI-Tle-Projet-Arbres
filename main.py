@@ -36,6 +36,20 @@ display_height = web.page["#height"]
 display_size = web.page["#size"]
 display_values = web.page["#display_values"]
 
+test = web.page["#nav_p"]
+
+@when("click", test)
+def teste():
+    if "container_visible" not in web.page["#toolbox"].classes:
+        web.page["#toolbox"].classes.add("container_visible")
+    else:
+        web.page["#toolbox"].classes.remove("container_visible")
+
+    if "container_visible" not in web.page["#content"].classes:
+        web.page["#content"].classes.add("container_visible")
+    else:
+        web.page["#content"].classes.remove("container_visible")
+
 tree = Arbre()
 
 # Gestion de la soumission du formulaire principal (valeurs + type d'arbre)

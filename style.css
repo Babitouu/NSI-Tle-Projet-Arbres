@@ -127,6 +127,11 @@ h2 {
     gap: 10px;
 }
 
+#display_values {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
 /* Marge entre les formulaires du menu configuration */
 .toolbox_bloc {
     margin-bottom: 1.5rem;

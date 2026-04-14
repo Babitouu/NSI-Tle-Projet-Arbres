@@ -30,46 +30,57 @@ svg_tree_links = web.page["#tree_links"]
 svg_tree_nodes = web.page["#tree_nodes"]
 
 # Récupération des éléments pour l'affichage de la hauteur, de la taille et du parcours
+display_browse_type = web.page["#display_browse_type"]
 display_browse_list = web.page["#display_browse_list"]
 display_height = web.page["#height"]
 display_size = web.page["#size"]
+display_values = web.page["#display_values"]
 
 tree = Arbre()
 
 # Gestion de la soumission du formulaire principal (valeurs + type d'arbre)
 @when("submit", form_values_type)
 def submit_form_values_type():
-    # Si un ABR est demandé, on affiche les outils de recherche et de parcours
-    if input_values.value != "" and input_type.value == "search":
-        if "display_none" in browse_div.classes:
-            browse_div.classes.remove("display_none")
-        if "display_none" in search_div.classes:
-            search_div.classes.remove("display_none")
+    global tree
 
-    # Génération de l'arbre
-    liste = [
+    values = [
         float(x) if "." in x else int(x)
         for x in re.sub(r"[^0-9,.\-]", "", input_values.value).split(",")
         if x
     ]
 
-    global tree
+    display_values.textContent = str(values)
 
-    if len(liste) > 0 and liste[0] != "":
+    if len(values) > 0 and values[0] != "":
+        # Si c'est un ABR
         if input_type.value == "search":
-            tree = Arbre(Node(liste[0]))
-            liste.pop(0)
-            for elt in liste:
+            tree = Arbre(Node(values[0]))
+            values.pop(0)
+            for elt in values:
                 tree.inserer(elt)
-        
-        display_height.textContent = tree.hauteur()
-        display_size.textContent = tree.taille()
-    
+
+            if "display_none" in browse_div.classes:
+                browse_div.classes.remove("display_none")
+            if "display_none" in search_div.classes:
+                search_div.classes.remove("display_none")
+
+            display_height.textContent = tree.hauteur()
+            display_size.textContent = tree.taille()
+
+
+        generate_tree(input_type.value)
+        form_values_type.reset()
+
     else:
         display_height.textContent = "-"
         display_size.textContent = "-"
-
-        generate_tree(input_type.value)
+        display_browse_list.textContent = ""
+        display_browse_type.textContent = ""
+        display_values.textContent = ""
+        if "display_none" not in browse_div.classes:
+            browse_div.classes.add("display_none")
+        if "display_none" not in search_div.classes:
+            search_div.classes.add("display_none")
 
 # Callback déclenché quand la largeur du SVG change
 def callback(*_):
@@ -90,6 +101,7 @@ def submit_form_search():
 # Gestion de la soumission du formulaire de parcours
 @when("submit", form_browse)
 def submit_form_browse():
+    display_browse_type.textContent = "préfixe" if input_browse.value == "prefixe" else "en largeur" if input_browse.value == "largeur" else input_browse.value
     display_browse_list.textContent = eval("tree.parcours_"+input_browse.value+"()")
     # Réinitialisation du formulaire après traitement
     form_browse.reset()

@@ -87,6 +87,37 @@ class Arbre:
             
             # sinon la valeur existe deja, on ne l'insere pas
 
+    def inserer_classic(self, liste):
+        """
+        Construit un arbre binaire classique à partir
+        d'une liste en parcours en largeur.
+        Les None représentent des cases vides.
+        """
+        if not liste or liste[0] is None:
+            self.noeud = None
+            return
+
+        self.noeud = Node(liste[0])
+        file = deque([self.noeud])
+
+        i = 1
+
+        while file and i < len(liste):
+            courant = file.popleft()
+
+            # fils gauche
+            if i < len(liste):
+                if liste[i] is not None:
+                    courant.sag = Node(liste[i])
+                    file.append(courant.sag)
+                i += 1
+
+            # fils droit
+            if i < len(liste):
+                if liste[i] is not None:
+                    courant.sad = Node(liste[i])
+                    file.append(courant.sad)
+                i += 1
     
     # PARCOURS NORMAUX
     

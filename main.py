@@ -56,26 +56,31 @@ def submit_form_values_type():
 
     tree = Arbre()
 
-    values = [
-        float(x) if "." in x else int(x)
-        for x in re.sub(r"[^0-9,.\-]", "", input_values.value).split(",")
-        if x and x != "" and x != "-"
-    ]
+    if input_type.value == "search":
+        if "display_none" in search_div.classes:
+            search_div.classes.remove("display_none")
+        values = [
+            float(x) if "." in x else int(x)
+            for x in re.sub(r"[^0-9,.\-]", "", input_values.value).split(",")
+            if x and x != "" and x != "-" and x != "."
+        ]
+    else:
+        if "display_none" not in search_div.classes:
+            search_div.classes.add("display_none")
+        cleaned = input_values.value.replace("[","").replace("]","").replace("'","").replace("\"","").replace(" ","").split(",")
+        values = [None if x == "None" else x for x in cleaned]
 
     display_values.textContent = str(values).replace(",", ", ")
 
     if len(values) > 0:
-        # Si c'est un ABR
         if input_type.value == "search":
             for elt in values:
                 tree.inserer(elt)
+        else:
+            tree.inserer_classic(values)
 
-
-            if "display_none" in search_div.classes:
-                search_div.classes.remove("display_none")
-
-            display_height.textContent = tree.hauteur()
-            display_size.textContent = tree.taille()
+        display_height.textContent = tree.hauteur()
+        display_size.textContent = tree.taille()
 
         if "display_none" in browse_div.classes:
             browse_div.classes.remove("display_none")
@@ -146,37 +151,42 @@ def generate_tree(type):
     nodes = ""
 
     esp_y = 100
-    esp_x = 10
+    esp_x = 20
     fact = 2
  
-    if type == "search":
-        hauteur_globale = tree.hauteur()
- 
-        def generate_recur(arbre, x=0, y=0):
-            nonlocal links, nodes
-            profondeur = int(y / esp_y)
-            offset = (fact ** (hauteur_globale - profondeur - 1)) * esp_x
-            x_new_noeuds_g = x - offset
-            x_new_noeuds_d = x + offset
-            y_new_noeud = y+esp_y
+    hauteur_globale = tree.hauteur()
 
-            nodes += f"""
-                <g transform="translate({x}, {y})">
-                    <circle class="tree_node" data-value="{arbre.noeud.v}" />
-                    <text dy="5" class="node_text">{arbre.noeud.v}</text>
-                </g>
-            """
+    def generate_recur(arbre, x=0, y=0):
+        nonlocal links, nodes
+        
+        # Vérifier que l'arbre n'est pas vide
+        if arbre is None or arbre.estVide():
+            return
+        
+        profondeur = int(y / esp_y)
+        offset = (fact ** (hauteur_globale - profondeur - 1)) * esp_x
+        x_new_noeuds_g = x - offset
+        x_new_noeuds_d = x + offset
+        y_new_noeud = y+esp_y
 
-            if not arbre.gauche().estVide():
-                links += f'<line x1="{x}" y1="{y}" x2="{x_new_noeuds_g}" y2="{y_new_noeud}" class="svg_link" />'
-                generate_recur(arbre.gauche(), x_new_noeuds_g, y_new_noeud)
-            if not arbre.droit().estVide():
-                links += f'<line x1="{x}" y1="{y}" x2="{x_new_noeuds_d}" y2="{y_new_noeud}" class="svg_link" />'
-                generate_recur(arbre.droit(), x_new_noeuds_d, y_new_noeud)
+        nodes += f"""
+            <g transform="translate({x}, {y})">
+                <circle class="tree_node" data-value="{arbre.noeud.v}" />
+                <text dy="5" class="node_text">{arbre.noeud.v}</text>
+            </g>
+        """
 
-        generate_recur(tree)
+        gauche = arbre.gauche()
+        if gauche and not gauche.estVide():
+            links += f'<line x1="{x}" y1="{y}" x2="{x_new_noeuds_g}" y2="{y_new_noeud}" class="svg_link" />'
+            generate_recur(gauche, x_new_noeuds_g, y_new_noeud)
+        
+        droit = arbre.droit()
+        if droit and not droit.estVide():
+            links += f'<line x1="{x}" y1="{y}" x2="{x_new_noeuds_d}" y2="{y_new_noeud}" class="svg_link" />'
+            generate_recur(droit, x_new_noeuds_d, y_new_noeud)
 
-
+    generate_recur(tree)
 
     svg_tree_links.innerHTML = links
     svg_tree_nodes.innerHTML = nodes

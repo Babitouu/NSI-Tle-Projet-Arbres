@@ -325,11 +325,21 @@ option::checkmark {
 }
 
 /* Abre - Nœuds : Couleur, police, taille et épaisseur */
-.node-text {
+.node_text {
     fill: #f1f5f9;
     font-family: 'Segoe UI', sans-serif;
     font-size: 14px;
     font-weight: bold;
+    text-anchor: middle;
+}
+.tree_node {
+    r: 22;
+    fill: var(--bg);
+    stroke: var(--accent);
+    stroke-width: 3;
+}
+.tree_node_searched {
+    stroke: var(--secondary);
 }
 
 /* Conteneur des statistiques : Affichage en grille, espacement et marge haute */

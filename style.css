@@ -314,6 +314,7 @@ option::checkmark {
 #reset_view {
     position: absolute;
     right: 15px;
+    cursor: pointer;
 }
 
 /* Arbre - Liens entre les nœuds : Couleur et taille */

@@ -148,6 +148,8 @@ nav p {
         width: calc(100% - 30px);
         transform: translateX(-100vw);
         transition: transform 0.5s linear;
+        height: 87vh;
+        overflow: overlay;
     }
 
     #toolbox.container_visible {

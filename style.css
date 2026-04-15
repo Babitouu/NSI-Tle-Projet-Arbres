@@ -300,12 +300,20 @@ option::checkmark {
 }
 
 /* SVG - Arbre : Taille et retrait des actions de sélection utilisateur */
+#tree_container {
+    height: 425px;
+    width: 100%;
+}
 #tree {
     width: 100%;
     user-select: none;
     touch-action: none;
     overflow: hidden;
     height: 425px;
+}
+#reset_view {
+    position: absolute;
+    right: 15px;
 }
 
 /* Arbre - Liens entre les nœuds : Couleur et taille */

@@ -1,7 +1,7 @@
 # Import des modules PyScript pour interagir avec la page web (DOM + évènements)
 from pyscript import web, when, display, document
 # Import des objets JavaScript pour afficher des logs et observer le redimensionnement du SVG
-from js import console, ResizeObserver
+from js import console, ResizeObserver, window
 # Import de l'outil permettant de créer un proxy Python utilisable côté JavaScript
 from pyodide.ffi import create_proxy
 # Import du module d'expressions régulières
@@ -82,6 +82,9 @@ def submit_form_values_type():
         display_browse_type.textContent = ""
 
         generate_tree(input_type.value)
+        
+        # Réinitialiser panzoom après génération du contenu
+        window.init_panzoom()
 
     else:
         display_height.textContent = "-"
@@ -97,7 +100,7 @@ def submit_form_values_type():
 
 # Callback déclenché quand la largeur du SVG change
 def callback(*_):
-    console.log("La largeur de l'arbre est : ",svg_tree.clientWidth)
+    window.init_panzoom()
 
 # Observation continue du redimensionnement de la zone d'affichage de l'arbre
 callback_proxy = create_proxy(callback)

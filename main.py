@@ -54,6 +54,8 @@ def submit_form_values_type():
 
     global tree
 
+    tree = Arbre()
+
     values = [
         float(x) if "." in x else int(x)
         for x in re.sub(r"[^0-9,.\-]", "", input_values.value).split(",")
@@ -65,8 +67,6 @@ def submit_form_values_type():
     if len(values) > 0:
         # Si c'est un ABR
         if input_type.value == "search":
-            tree = Arbre(Node(values[0]))
-            values.pop(0)
             for elt in values:
                 tree.inserer(elt)
 

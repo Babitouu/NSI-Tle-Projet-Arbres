@@ -127,41 +127,38 @@ def generate_tree(type):
     links = ""
     nodes = ""
 
-    # Largeur disponible dans le conteneur SVG pour calculer les positions
-    width = svg_tree.clientWidth
+    esp_y = 100
+    esp_x = 10
+    fact = 2
+ 
+    if type == "search":
+        hauteur_globale = tree.hauteur()
+ 
+        def generate_recur(arbre, x=0, y=0):
+            nonlocal links, nodes
+            profondeur = int(y / esp_y)
+            offset = (fact ** (hauteur_globale - profondeur - 1)) * esp_x
+            x_new_noeuds_g = x - offset
+            x_new_noeuds_d = x + offset
+            y_new_noeud = y+esp_y
 
-    # Cas d'affichage d'un arbre binaire classique
-    if type == "default":
-        # Calcul de la hauteur de l'arbre, puis de l'échelle horizontale utilisée pour placer les nœuds
-        h = tree.hauteur()
-        px_par_unite = width / (2 ** (h + 1))
+            nodes += f"""
+                <g transform="translate({x}, {y})">
+                    <circle r="22" fill="#0f172a" stroke="#22d3ee" stroke-width="3" />
+                    <text text-anchor="middle" dy="5" class="node-text">{arbre.noeud.v}</text>
+                </g>
+            """
 
-        # Parcours par niveau (r = rang du niveau)
-        for r in range(h):
-            # Espacement horizontal entre les nœuds de ce niveau
-            esp = 2 ** (h - r)
+            if not arbre.gauche().estVide():
+                links += f'<line x1="{x}" y1="{y}" x2="{x_new_noeuds_g}" y2="{y_new_noeud}" class="svg_link" />'
+                generate_recur(arbre.gauche(), x_new_noeuds_g, y_new_noeud)
+            if not arbre.droit().estVide():
+                links += f'<line x1="{x}" y1="{y}" x2="{x_new_noeuds_d}" y2="{y_new_noeud}" class="svg_link" />'
+                generate_recur(arbre.droit(), x_new_noeuds_d, y_new_noeud)
 
-            # Parcours de chaque nœud du niveau courant
-            for n in range(2 ** r):
-                # Position du nœud parent
-                x1 = (2 * n + 1) * esp * px_par_unite
-                y1 = 100 * r
+        generate_recur(tree)
 
-                # Génération des deux liens vers les enfants (gauche puis droite)
-                for a in range(2):
-                    x2 = (2 * n + 0.5 + a) * esp * px_par_unite
-                    y2 = 100 * (r + 1)
-                    links += f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" class="svg_link" />'
 
-                # Génération du nœud (cercle + texte)
-                nodes += f"""
-                    <g transform="translate({x1}, {y1})">
-                        <circle r="22" fill="#0f172a" stroke="#22d3ee" stroke-width="3" />
-                        <text text-anchor="middle" dy="5" class="node-text">10</text>
-                    </g>
-                """
 
-        # Injection finale du contenu SVG dans la page
-        svg_tree_links.innerHTML = links
-        svg_tree_nodes.innerHTML = nodes
-
+    svg_tree_links.innerHTML = links
+    svg_tree_nodes.innerHTML = nodes

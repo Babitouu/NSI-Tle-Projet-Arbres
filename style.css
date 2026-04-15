@@ -1,26 +1,45 @@
-/* Variables */
+/* ===== VARIABLES CSS (DESIGN SYSTEM) =====*/
+/* Palette de couleurs, espacements, rayons de bordure et transitions globales */
 :root {
+    /* Gradient de couleurs principal pour l'interface */
     --primary: #6366f1;
     --secondary: #a855f7;
     --third: #c084fc;
     --accent: #22d3ee;
+    
+    /* Couleurs de base */
     --bg: #0f172a;
+    
+    /* Variables de style glassmorphism (effet vitre frosted) */
     --glass: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
+    
+    /* Couleurs du texte */
     --text: #f1f5f9;
     --text-muted: #94a3b8;
+    
+    /* Superposition sombre pour les éléments */
     --surface-dark: rgba(0, 0, 0, 0.2);
+    
+    /* Espacements standardisés */
     --space: 15px;
     --tiny-space: 10px;
+    
+    /* Rayons de bordure pour différentes profondeurs */
     --box-radius: 12px;
     --radius-md: 16px;
+    
+    /* Transition globale par défaut */
     --transition-fast: 0.3s;
+    
+    /* Polices de caractères */
     --font-family-normal: 'Inter', Arial, sans-serif;
     --font-family-select: 'Inter', sans-serif;
     --font-family-code: 'Fira Code', monospace;
 }
 
-/* Code de réinitialisation des styles par défaut */
+/* ===== RÉINITIALISATION DES STYLES PAR DÉFAUT =====*/
+/* Reset CSS : éliminer les marges et remplissage par défaut du navigateur */
 * {
     margin: 0;
     padding: 0;
@@ -30,7 +49,8 @@
     font-size: medium;
 }
 
-/* Code du corps de la page : Police, arrière plan, couleur du texte, hauteur et espacement entre les lignes */
+/* ===== STYLES GLOBAUX DE BASE =====*/
+/* Corps de la page : Police, arrière plan, couleur du texte et propriétés de mise en page */
 body {
     font-family: var(--font-family-normal);
     background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
@@ -41,12 +61,14 @@ body {
     overflow-x: hidden;
 }
 
-/* Code pour cacher des éléments dynamiquement */
+/* ===== UTILITAIRES =====*/
+/* Classe pour masquer des éléments dynamiquement */
 .display_none {
     display: none;
 }
 
-/* Code de l'élèment en arrière plan (Un cercle de 500px de diamètre en arrière plan, flouté et annimé) */
+/* ===== ARRIÈRE PLAN ANIMÉ =====*/
+/* Élément blob : cercle flou et animé en arrière plan pour créer un effet ambiant */
 #blob {
     position: fixed;
     width: 500px;
@@ -59,7 +81,7 @@ body {
     animation: move 20s infinite alternate;
 }
 
-/* Annimation du cercle (des déplacements) */
+/* Animation du blob : déplacement continu pour un effet dynamique */
 @keyframes move {
     from {
         transform: translate(-10%, -10%);
@@ -69,7 +91,8 @@ body {
     }
 }
 
-/* Varre de navigation : positionnement, taille, arrière plan, bordures et placements des éléments à l'intérieur */
+/* ===== BARRE DE NAVIGATION (NAV) =====*/
+/* Barre sticky avec effet glassmorphism : positionnement, arrière plan et disposition flexbox */
 nav {
     position: sticky;
     top: 0;
@@ -84,12 +107,13 @@ nav {
     z-index: 1000;
 }
 
+/* Conteneur interne de la nav avec logo et titre */
 nav div {
     display: flex;
     align-items: center;
 }
 
-/* Titre de la barre de navigation : Épaisseur, taille, arrière plan et couleur */
+/* Titre principal de la nav avec dégradé de couleur */
 nav h1 {
     margin-left: 5px;
     font-weight: 800;
@@ -99,25 +123,29 @@ nav h1 {
     color: transparent;
 }
 
+/* Affichage des valeurs avec police monospace */
 #display_values {
     font-family: var(--font-family-code);
 }
 
+/* Bouton de paramètres masqué sur desktop, visible en responsive */
 #nav_settings {
     display: none;
 }
 
+/* Curseur pointeur pour les éléments cliquables */
 nav h1, nav svg {
     cursor: pointer;
 }
 
-/* Description de la barre de navigation : Taille et opacitée */
+/* Description de la nav avec opacité réduite */
 nav p {
     font-size: 0.9rem;
     opacity: 0.5;
 }
 
-/* Conteneur principal : Taille, marges et disposition en grille */
+/* ===== MISE EN PAGE PRINCIPALE =====*/
+/* Conteneur principal : disposition en grille avec deux colonnes (toolbox et contenu) */
 #container {
     width: 100%;
     margin-top: 20px;
@@ -127,7 +155,7 @@ nav p {
     gap: var(--space);
 }
 
-/* Deux sous-conteneurs : arrière plan, bordure, marges et ombres */
+/* Conteneurs principaux : arrière plan glassmorphism, bordures et ombres */
 #toolbox, #content {
     background: var(--glass);
     backdrop-filter: blur(10px);
@@ -137,11 +165,13 @@ nav p {
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
+/* Responsive : sur petit écran, passer à une grille simple avec toolbox en sidebar mobile */
 @media (max-width: 900px) {
     #container {
         grid-template-columns: 1fr;
     }
 
+    /* Transformer la toolbox en drawer fixes sur mobile */
     #toolbox {
         position: fixed;
         z-index: 100;
@@ -152,34 +182,39 @@ nav p {
         overflow: overlay;
     }
 
+    /* Afficher la toolbox quand menu est ouvert */
     #toolbox.container_visible {
         transform: translateX(0);
     }
 
+    /* Afficher le bouton settings en responsive */
     #nav_settings {
         display: block;
     }
 }
 
 
-/* Titre des sous-conteneurs : Taille, marge, épaisseur et positionnement */
+/* ===== TITRES ET TEXTE =====*/
+/* Titres de niveau 2 : marge et poids de police */
 h2 {
     margin-bottom: var(--space);
     font-weight: 700;
     font-size: 1.2rem;
 }
 
+/* Affichage des valeurs dans le titre principal */
 #display_values {
     font-weight: 700;
     font-size: 1.2rem;
 }
 
-/* Marge entre les formulaires du menu configuration */
+/* ===== FORMULAIRES DE LA TOOLBOX =====*/
+/* Bloc de formulaire : marge inférieure pour espacement */
 .toolbox_bloc {
     margin-bottom: 1.5rem;
 }
 
-/* Titre des formulaires du menu configuration */
+/* Titre des formulaires : small caps et couleur muted */
 #toolbox h3 {
     display: block;
     margin-bottom: 0.5rem;
@@ -188,7 +223,7 @@ h2 {
     color: var(--text-muted);
 }
 
-/* Ėléments des formulaires du menu configuration */
+/* Champs de saisie et sélecteurs : style glassmorphism */
 input, select {
     width: 100%;
     background: var(--surface-dark);
@@ -201,12 +236,12 @@ input, select {
     transition: var(--transition-fast);
 }
 
-/* Bordule en focus */
+/* Effet de focus sur les champs */
 input:focus, select:focus {
     border-color: var(--accent);
 }
 
-/* Boutons des formulaires du menu configuration */
+/* Boutons des formulaires avec gradient */
 button {
     width: 100%;
     padding: 1rem;
@@ -220,13 +255,13 @@ button {
     margin-top: var(--tiny-space);
 }
 
-/* Ombre et déplacement au survol */
+/* Effet hover sur les boutons : translation et ombre */
 button:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
 }
 
-/* Marges des sélecteurs */
+/* Espacement des sélecteurs dans les formulaires */
 form>select {
     margin-top: 7px;
 }

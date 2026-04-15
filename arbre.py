@@ -89,34 +89,52 @@ class Arbre:
 
     def inserer_classic(self, liste):
         """
-        Construit un arbre binaire classique à partir
-        d'une liste en parcours en largeur.
-        Les None représentent des cases vides.
+        Construit un arbre binaire classique à partir d'une liste en parcours en largeur.
+        Les None représentent des cases vides (nœuds inexistants).
+        
+        Algorithme :
+        - Utilise une file pour traiter les nœuds niveau par niveau (BFS)
+        - Pour chaque nœud, insère son fils gauche puis son fils droit
+        - Les None dans la liste indiquent l'absence de nœud à cette position
         """
+        # Cas spéciaux : si la liste est vide ou commence par None, l'arbre reste vide
         if not liste or liste[0] is None:
             self.noeud = None
             return
 
+        # Initialiser la racine avec le premier élément de la liste
         self.noeud = Node(liste[0])
+        # Créer une file contenant la racine pour le traitement en largeur
         file = deque([self.noeud])
 
+        # Index pour parcourir la liste des valeurs
         i = 1
 
+        # Traiter tant qu'il y a des nœuds dans la file et des valeurs dans la liste
         while file and i < len(liste):
+            # Défiler le nœud actuel (le plus ancien dans la file)
             courant = file.popleft()
 
-            # fils gauche
+            # ===== INSERTION DU FILS GAUCHE =====
+            # Vérifier qu'il reste des éléments à traiter dans la liste
             if i < len(liste):
+                # Si l'élément n'est pas None, créer un nœud enfant gauche
                 if liste[i] is not None:
                     courant.sag = Node(liste[i])
+                    # Enfiler ce nœud pour traiter ses enfants plus tard
                     file.append(courant.sag)
+                # Passer à l'élément suivant qu'il soit None ou non
                 i += 1
 
-            # fils droit
+            # ===== INSERTION DU FILS DROIT =====
+            # Vérifier qu'il reste des éléments à traiter dans la liste
             if i < len(liste):
+                # Si l'élément n'est pas None, créer un nœud enfant droit
                 if liste[i] is not None:
                     courant.sad = Node(liste[i])
+                    # Enfiler ce nœud pour traiter ses enfants plus tard
                     file.append(courant.sad)
+                # Passer à l'élément suivant qu'il soit None ou non
                 i += 1
     
     # PARCOURS NORMAUX

@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- ===== MÉTADONNÉES ET CONFIGURATION =====-->
     <!-- Encodage en UTF-8 et prise en charge du responsive -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ===== TITRE ET ICÔNE =====-->
     <!-- Titre et icone de la page -->
     <title>ArbreViz</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- ===== STYLES =====-->
     <!-- Intégration du fichier des styles -->
     <link rel="stylesheet" href="./style.css">
-    <!-- Google Fonts - Pour la police Inter -->
+    
+    <!-- ===== POLICES GOOGLE =====-->
+    <!-- Google Fonts - Pour la police Inter et Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <!-- PyScript - Pour le python-->
+    
+    <!-- ===== LIBRARIES EXTERNES =====-->
+    <!-- PyScript - Pour exécuter du code Python dans le navigateur -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2026.3.1/core.css" />
     <script type="module" src="https://pyscript.net/releases/2026.3.1/core.js"></script>
-    <!-- SVG Zoom : https://github.com/anvaka/panzoom - Pour zoomer dans le svg (l'arbre) -->
+    
+    <!-- Panzoom : https://github.com/anvaka/panzoom - Pour permettre le zoom et le déplacement du SVG (l'arbre) -->
     <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
 </head>
 <body>
-
+    <!-- ===== ANIMATION DE DÉMARRAGE =====-->
+    <!-- Écran de chargement avec animation du logo -->
     <div id="start_logo">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path class="l1" d="M16 24V24" stroke="white" stroke-width="0" stroke-linecap="round" stroke-linejoin="round">
@@ -51,10 +62,12 @@
         <h1>ArbreViz</h1>
     </div>
 
-    <!-- Rond fixé en arrière plan pour ajouter un effet de couleur -->
+    <!-- ===== ARRIÈRE PLAN ANIMÉ =====-->
+    <!-- Cercle flouté repositionné en arrière plan pour créer un effet de couleur ambiant -->
     <div id="blob"></div>
 
-    <!-- Barre de navigation avec le logo, le titre et la description -->
+    <!-- ===== BARRE DE NAVIGATION =====-->
+    <!-- Barre de navigation sticky avec logo, titre et bouton de paramètres -->
     <nav>
         <div>
             <svg onclick="window.location.reload()" width="38.391" height="38.391" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 26V14M16 20L22 16M16 18L10 14" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="9" r="5" fill="var(--accent)"/><circle cx="23" cy="15" r="4" fill="var(--secondary)"/><circle cx="9" cy="13" r="3.5" fill="var(--third)"/> </svg>
@@ -64,9 +77,11 @@
         <svg id="nav_settings" xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px"><defs><linearGradient id="grad-settings" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--accent)" /><stop offset="100%" stop-color="var(--secondary)" /></linearGradient></defs><path fill="url(#grad-settings)" d="m382-80-18.67-126.67q-17-6.33-34.83-16.66-17.83-10.34-32.17-21.67L178-192.33 79.33-365l106.34-78.67q-1.67-8.33-2-18.16-.34-9.84-.34-18.17 0-8.33.34-18.17.33-9.83 2-18.16L79.33-595 178-767.67 296.33-715q14.34-11.33 32.34-21.67 18-10.33 34.66-16L382-880h196l18.67 126.67q17 6.33 35.16 16.33 18.17 10 31.84 22L782-767.67 880.67-595l-106.34 77.33q1.67 9 2 18.84.34 9.83.34 18.83 0 9-.34 18.5Q776-452 774-443l106.33 78-98.66 172.67-118-52.67q-14.34 11.33-32 22-17.67 10.67-35 16.33L578-80H382Zm55.33-66.67h85l14-110q32.34-8 60.84-24.5T649-321l103.67 44.33 39.66-70.66L701-415q4.33-16 6.67-32.17Q710-463.33 710-480q0-16.67-2-32.83-2-16.17-7-32.17l91.33-67.67-39.66-70.66L649-638.67q-22.67-25-50.83-41.83-28.17-16.83-61.84-22.83l-13.66-110h-85l-14 110q-33 7.33-61.5 23.83T311-639l-103.67-44.33-39.66 70.66L259-545.33Q254.67-529 252.33-513 250-497 250-480q0 16.67 2.33 32.67 2.34 16 6.67 32.33l-91.33 67.67 39.66 70.66L311-321.33q23.33 23.66 51.83 40.16 28.5 16.5 60.84 24.5l13.66 110Zm43.34-200q55.33 0 94.33-39T614-480q0-55.33-39-94.33t-94.33-39q-55.67 0-94.5 39-38.84 39-38.84 94.33t38.84 94.33q38.83 39 94.5 39ZM480-480Z"/></svg>
     </nav>
 
-    <!-- Conteneur principal de la page -->
+    <!-- ===== CONTENEUR PRINCIPAL =====-->
+    <!-- Conteneur principal divisé en deux sections : toolbox (gauche) et contenu (droite) -->
     <div id="container">
-        <!-- Boite à outils pour la configuration sur le côté -->
+        <!-- ===== BOÎTE À OUTILS (SIDEBAR) =====-->
+        <!-- Formulaires de configuration regroupés dans une barre latérale fixe -->
         <aside id="toolbox">
             <!-- Titre -->
             <h2>Configuration</h2>
@@ -114,11 +129,15 @@
                 <button id="history_button">Charger</button>
             </div>
         </aside>
-        <!-- Partie principale avec le svg (l'arbre) et les informations associés -->
+        
+        <!-- ===== CONTENU PRINCIPAL =====-->
+        <!-- Zone d'affichage du SVG de l'arbre et statistiques associées -->
         <main id="content">
             <!-- Titre -->
             <h2>Affichage de l'arbre : <span id="display_values"></span></h2>
-            <!-- L'arbre -->
+            
+            <!-- ===== ZONE D'AFFICHAGE DE L'ARBRE =====-->
+            <!-- Conteneur SVG responsif avec contrôles de zoom -->
             <div id="tree_container">
                 <svg id="tree" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
                     <!-- Le conteneur principal -->
@@ -131,7 +150,9 @@
                 </svg>
                 <svg id="reset_view" onclick="window.init_panzoom()" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px"><defs><linearGradient id="grad-reset" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="var(--accent)" /><stop offset="100%" stop-color="var(--secondary)" /></linearGradient></defs><path fill="url(#grad-reset)" d="M444-72v-150l-33 33-51-51 120-120 120 120-51 51-33-33v150h-72ZM240-360l-51-51 33-33H72v-72h150l-33-33 51-51 120 120-120 120Zm480 0L600-480l120-120 51 51-33 33h150v72H738l33 33-51 51Zm-240-60q-25 0-42.5-17.5T420-480q0-25 17.5-42.5T480-540q25 0 42.5 17.5T540-480q0 25-17.5 42.5T480-420Zm0-180L360-720l51-51 33 33v-150h72v150l33-33 51 51-120 120Z"/></svg>
             </div>
-            <!-- Conteneur des détails de l'arbre -->
+            
+            <!-- ===== STATISTIQUES DE L'ARBRE =====-->
+            <!-- Affichage de la hauteur et de la taille de l'arbre en cartes -->
             <div id="stats_container">
                 <!-- Hauteur de l'arbre -->
                 <div>
@@ -144,26 +165,34 @@
                     <p id="size">-</p>
                 </div>
             </div>
-            <!-- Conteneur du parcours de l'arbre -->
+            
+            <!-- ===== PARCOURS DE L'ARBRE =====-->
+            <!-- Affichage du résultat du parcours sélectionné (préfixe, infixe, suffixe, largeur) -->
             <div id="browse_container">
                 <p><strong>Parcours <span id="display_browse_type"></span> :</strong> <span id="display_browse_list"></span></p>
             </div>
         </main>
     </div>
 
-    <!-- Bas de page avec le copyright -->
+    <!-- ===== PIED DE PAGE =====-->
+    <!-- Copyright et crédits -->
     <footer>© 2026 : Romain THIBEAUD et Cédric VILLEMONAIS</footer>
 
-    <!-- Script permettant le zoom dans le svg (l'arbre) -->
+    <!-- ===== SCRIPT DE GESTION DU ZOOM =====-->
+    <!-- Initialisation et gestion de Panzoom pour permettre le zoom et le déplacement du SVG -->
     <script>
-        // Fonction pour initialiser/réinitialiser panzoom
+        // Fonction pour initialiser/réinitialiser l'instance Panzoom
+        // Appelée au chargement et à chaque redimensionnement du SVG
         window.init_panzoom = function() {
-            // Disposer l'ancienne instance si elle existe
+            // Disposer l'ancienne instance si elle existe pour éviter les conflits
             if (window.panzoom_instance) {
                 window.panzoom_instance.dispose();
             }
             
-            // Créer une nouvelle instance
+            // Créer une nouvelle instance de Panzoom avec configuration
+            // - autocenter: centre automatiquement l'élément
+            // - bounds: empêche de faire des pan en dehors des limites
+            // - boundsPadding: espace de padding autour des limites
             window.panzoom_instance = panzoom(document.getElementById("tree_content"), {
                 autocenter: true,
                 bounds: true,
@@ -172,11 +201,12 @@
             });
         };
         
-        // Initialiser au chargement
+        // Initialiser Panzoom au chargement de la page
         window.init_panzoom();
     </script>
     
-    <!-- Intégration du script python -->
+    <!-- ===== SCRIPT PYTHON =====-->
+    <!-- Intégration du script PyScript pour la logique métier (gestion des arbres et événements) -->
     <script type="py" src="./main.py" config="./pyscript.toml"></script>
 </body>
 </html>

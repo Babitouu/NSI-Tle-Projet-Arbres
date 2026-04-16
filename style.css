@@ -338,8 +338,12 @@ option::checkmark {
 
 /* SVG - Arbre : Taille et retrait des actions de sélection utilisateur */
 #tree_container {
+    position: relative;
     height: 425px;
     width: 100%;
+}
+#tree_container:fullscreen {
+    background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
 }
 #tree {
     width: 100%;
@@ -348,10 +352,32 @@ option::checkmark {
     overflow: hidden;
     height: 425px;
 }
-#reset_view {
+#tree_container:fullscreen #tree {
+    height: 100vh;
+}
+#tree_buttons {
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    right: 15px;
+    right: 0;
+    top: 0;
+}
+#tree_container:fullscreen #tree_buttons {
+    top: 5px;
+    right: 5px;
+}
+#tree_buttons>svg {
     cursor: pointer;
+    margin-bottom: 5px;
+}
+#tree_container:fullscreen #enter_full_screen {
+    display: none;
+}
+#exit_full_screen {
+    display: none;
+}
+#tree_container:fullscreen #exit_full_screen {
+    display: block;
 }
 
 /* Arbre - Liens entre les nœuds : Couleur et taille */

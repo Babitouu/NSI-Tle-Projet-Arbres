@@ -59,6 +59,14 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     overflow-x: hidden;
+    overflow-y: hidden;
+    animation: start_logo_body 10s linear forwards;
+}
+
+@keyframes start_logo_body {
+    100% {
+        overflow-y: visible;
+    }
 }
 
 /* ===== UTILITAIRES =====*/

@@ -1,5 +1,7 @@
 # NSI-Tle-Projet-Arbres
 
+## [https://nsi-tle-projet-arbres.cedric-villemonais.fr/](https://nsi-tle-projet-arbres.cedric-villemonais.fr/)
+
 ## Documents
 - [Sujet](https://github.com/Babitouu/NSI-Tle-Projet-Arbres/blob/50afc7ba2b7738df6b08c6ef497b8941335dc23e/Documents/Sujet.pdf)
 - [Grille d'évaluation](https://github.com/Babitouu/NSI-Tle-Projet-Arbres/blob/50afc7ba2b7738df6b08c6ef497b8941335dc23e/Documents/Grille%20d'%C3%A9valuation.pdf)
@@ -140,11 +142,14 @@ Nous avons choisi **PyScript** plutôt que Flask pour plusieurs raisons essentie
 
 ### Étapes de lancement
 
-**Option 1 : Utiliser ArbreViz.exe**
+**Option 1 : Utiliser le lien GitHub Pages**
+1. [https://nsi-tle-projet-arbres.cedric-villemonais.fr/](https://nsi-tle-projet-arbres.cedric-villemonais.fr/)
+
+**Option 2 : Utiliser ArbreViz.exe**
 1. Double-cliquez sur `ArbreViz.exe` (si disponible)
 2. Ouvrez votre navigateur et accédez à `localhost:8000`
 
-**Option 2 : Utiliser le serveur Python intégré**
+**Option 3 : Utiliser le serveur Python intégré**
 1. Ouvrez un terminal dans le répertoire du projet
 2. Lancez la commande :
    ```bash

@@ -13,7 +13,8 @@
     /* Variables de style glassmorphism (effet vitre frosted) */
     --glass: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.1);
-    
+    --border: 1px solid var(--glass-border);
+
     /* Couleurs du texte */
     --text: #f1f5f9;
     --text-muted: #94a3b8;
@@ -107,7 +108,7 @@ nav {
     padding: 10px;
     background: var(--glass);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: var(--border);
     border-radius: 9999px;
     display: flex;
     justify-content: space-between;
@@ -167,10 +168,31 @@ nav p {
 #toolbox, #content {
     background: var(--glass);
     backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    border: var(--border);
     border-radius: 24px;
     padding: var(--space);
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+#content>h2 {
+    margin-bottom: var(--space);
+}
+
+#toolbox_titles {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: calc(var(--space) / 2);
+}
+#toolbox_titles>div {
+    cursor: pointer;
+    padding-bottom: calc(var(--space) / 2);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+}
+#toolbox_titles>div:nth-last-child(1) {
+    border-left: 1px solid var(--glass-border);
 }
 
 /* Responsive : sur petit écran, passer à une grille simple avec toolbox en sidebar mobile */
@@ -205,7 +227,6 @@ nav p {
 /* ===== TITRES ET TEXTE =====*/
 /* Titres de niveau 2 : marge et poids de police */
 h2 {
-    margin-bottom: var(--space);
     font-weight: 700;
     font-size: 1.2rem;
 }
@@ -235,7 +256,7 @@ h2 {
 input, select {
     width: 100%;
     background: var(--surface-dark);
-    border: 1px solid var(--glass-border);
+    border: var(--border);
     padding: 0.8rem;
     border-radius: var(--box-radius);
     color: white;
@@ -282,7 +303,7 @@ select, ::picker(select) {
 select {
     width: 100%;
     background: var(--surface-dark);
-    border: 1px solid var(--glass-border);
+    border: var(--border);
     padding: 0.8rem 1rem;
     border-radius: var(--box-radius);
     color: var(--text);
@@ -312,7 +333,7 @@ select:open::picker-icon {
 
 ::picker(select) {
     background: var(--bg);
-    border: 1px solid var(--glass-border);
+    border: var(--border);
     border-radius: var(--radius-md);
     padding: 8px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
@@ -426,7 +447,7 @@ option::checkmark {
     background: rgba(255,255,255,0.02);
     padding: var(--tiny-space);
     border-radius: var(--radius-md);
-    border: 1px solid var(--glass-border);
+    border: var(--border);
 }
 
 /* Titres des statistiques : Taille, couleur et transformation en majuscules */

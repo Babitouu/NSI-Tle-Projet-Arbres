@@ -83,51 +83,80 @@
         <!-- ===== BOÎTE À OUTILS (SIDEBAR) =====-->
         <!-- Formulaires de configuration regroupés dans une barre latérale fixe -->
         <aside id="toolbox">
-            <!-- Titre -->
-            <h2>Configuration</h2>
-            <!-- Partie avec le formulaire permettant de renseigner l'arbre ainsi que le type de l'arbre -->
-            <div class="toolbox_bloc">
-                <h3>Valeurs et Type de l'arbre</h3>
-                <form id="form_values_type" method="dialog">
-                    <input type="text" id="input_values" required>
-                    <select name="type" id="input_type" required>
-                        <option value="" disabled selected>Sélection du type</option>
-                        <option value="default">Arbre Binaire</option>
-                        <option value="search">Arbre Binaire de Recherche</option>
+            <!-- Titres -->
+            <div id="toolbox_titles">
+                <div onclick="toolbox_toggle('config')"><h2>Configuration</h2></div>
+                <div onclick="toolbox_toggle('history')"><h2>Historique</h2></div>
+            </div>
+            <div id="toolbox_configuration">
+                <!-- Partie avec le formulaire permettant de renseigner l'arbre ainsi que le type de l'arbre -->
+                <div class="toolbox_bloc">
+                    <h3>Valeurs et Type de l'arbre</h3>
+                    <form id="form_values_type" method="dialog">
+                        <input type="text" id="input_values" required>
+                        <select name="type" id="input_type" required>
+                            <option value="" disabled selected>Sélection du type</option>
+                            <option value="default">Arbre Binaire</option>
+                            <option value="search">Arbre Binaire de Recherche</option>
+                        </select>
+                        <button type="submit">Générer l'Arbre</button>
+                    </form>
+                </div>
+                <!-- Partie avec le formulaire permettant la recherche d'une valeur dans le cas d'un ABR -->
+                <div class="toolbox_bloc display_none" id="search_div">
+                    <h3>Rechercher une valeur</h3>
+                    <form id="form_search" method="dialog">
+                        <input type="number" id="input_search" required>
+                        <button type="submit">Rechercher</button>
+                    </form>
+                </div>
+                <!-- Partie avec le formulaire permettant de sélectionner le parcours de l'arbre -->
+                <div class="toolbox_bloc display_none" id="browse_div">
+                    <h3>Parcourir l'arbre</h3>
+                    <form id="form_browse" method="dialog">
+                        <select id="input_browse" required>
+                            <option value="" disabled selected>Sélection du parcours</option>
+                            <option value="prefixe">Préfixe</option>
+                            <option value="infixe">Infixe</option>
+                            <option value="suffixe">Suffixe</option>
+                            <option value="largeur">Largeur</option>
+                        </select>
+                        <button type="submit">Parcourir</button>
+                    </form>
+                </div>
+            </div>
+            <div id="toolbox_historique" class="display_none">
+                <!-- Partie avec le formulaire permettant de charger un arbre depuis l'historique -->
+                <div class="toolbox_bloc">
+                    <h3>Restaurer l'historique</h3>
+                    <select id="history_select" required>
+                        <option value="" disabled selected>Sélection de l'élément</option>
                     </select>
-                    <button type="submit">Générer l'Arbre</button>
-                </form>
+                    <button id="history_button">Restaurer</button>
+                </div>
             </div>
-            <!-- Partie avec le formulaire permettant la recherche d'une valeur dans le cas d'un ABR -->
-            <div class="toolbox_bloc display_none" id="search_div">
-                <h3>Rechercher une valeur</h3>
-                <form id="form_search" method="dialog">
-                    <input type="number" id="input_search" required>
-                    <button type="submit">Rechercher</button>
-                </form>
-            </div>
-            <!-- Partie avec le formulaire permettant de sélectionner le parcours de l'arbre -->
-            <div class="toolbox_bloc display_none" id="browse_div">
-                <h3>Parcourir l'arbre</h3>
-                <form id="form_browse" method="dialog">
-                    <select id="input_browse" required>
-                        <option value="" disabled selected>Sélection du parcours</option>
-                        <option value="prefixe">Préfixe</option>
-                        <option value="infixe">Infixe</option>
-                        <option value="suffixe">Suffixe</option>
-                        <option value="largeur">Largeur</option>
-                    </select>
-                    <button type="submit">Parcourir</button>
-                </form>
-            </div>
-            <h2>Historique</h2>
-            <!-- Partie avec le formulaire permettant de charger un arbre depuis l'historique -->
-            <div class="toolbox_bloc">
-                <select id="history_select" required>
-                    <option value="" disabled selected>Sélection de l'arbre</option>
-                </select>
-                <button id="history_button">Charger</button>
-            </div>
+            <script>
+                function toolbox_toggle(origin) {
+                    const config = document.getElementById("toolbox_configuration").classList;
+                    const history = document.getElementById('toolbox_historique').classList;
+                    if (origin == "config") {
+                        if (config.contains('display_none')) {
+                            config.remove('display_none');
+                        }
+                        if (!history.contains('display_none')) {
+                            history.add('display_none');
+                        }
+                    }
+                    else {
+                        if (history.contains('display_none')) {
+                            history.remove('display_none');
+                        }
+                        if (!config.contains('display_none')) {
+                            config.add('display_none');
+                        }
+                    }
+                }
+            </script>
         </aside>
         
         <!-- ===== CONTENU PRINCIPAL =====-->

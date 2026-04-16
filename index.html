@@ -136,21 +136,31 @@
                 </div>
             </div>
             <script>
+                // Fonction pour basculer entre les onglets Configuration et Historique
+                // Affiche/masque dynamiquement les deux sections en utilisant les classes CSS
                 function toolbox_toggle(origin) {
+                    // Récupérer les listes de classes CSS des deux conteneurs principaux
                     const config = document.getElementById("toolbox_configuration").classList;
                     const history = document.getElementById('toolbox_historique').classList;
+                    
+                    // Si l'onglet Configuration est cliqué
                     if (origin == "config") {
+                        // Afficher la configuration en retirant la classe display_none
                         if (config.contains('display_none')) {
                             config.remove('display_none');
                         }
+                        // Masquer l'historique en ajoutant la classe display_none
                         if (!history.contains('display_none')) {
                             history.add('display_none');
                         }
                     }
+                    // Si l'onglet Historique est cliqué
                     else {
+                        // Afficher l'historique en retirant la classe display_none
                         if (history.contains('display_none')) {
                             history.remove('display_none');
                         }
+                        // Masquer la configuration en ajoutant la classe display_none
                         if (!config.contains('display_none')) {
                             config.add('display_none');
                         }
@@ -223,9 +233,10 @@
             }
             
             // Créer une nouvelle instance de Panzoom avec configuration
-            // - autocenter: centre automatiquement l'élément
-            // - bounds: empêche de faire des pan en dehors des limites
-            // - boundsPadding: espace de padding autour des limites
+            // - autocenter: centre automatiquement l'élément dans son conteneur
+            // - bounds: empêche le panning/zoom en dehors des limites de l'arbre
+            // - boundsPadding: ajoute un espace de 5% autour des limites pour plus de flexibilité
+            // - transformOrigin: défini le centre de rotation et zoom comme centre de l'écran
             window.panzoom_instance = panzoom(document.getElementById("tree_content"), {
                 autocenter: true,
                 bounds: true,
@@ -234,7 +245,7 @@
             });
         };
         
-        // Initialiser Panzoom au chargement de la page
+        // Initialiser Panzoom au chargement de la page pour permettre immédiatement le zoom et le déplacement
         window.init_panzoom();
     </script>
     

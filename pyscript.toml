@@ -1,2 +1,7 @@
+# Configuration PyScript pour ArbreViz
+# Ce fichier configure l'environnement d'exécution Python dans le navigateur
+
 [files]
+# Mapping des fichiers Python à inclure dans le projet PyScript
+# La clé est le nom du module, la valeur est le chemin du fichier
 "arbre.py" = "./arbre.py"

@@ -41,6 +41,7 @@ display_values = web.page["#display_values"]
 
 # Récupération des boutons de navigation
 toolbox_button = web.page["#nav_settings"]
+toolbox_close_button = web.page["#nav_close_settings"]
 
 # Récupération des éléments d'historique
 history_select = web.page["#history_select"]
@@ -98,6 +99,10 @@ def toolbox_menu():
         web.page["#toolbox"].classes.remove("container_visible")
     else:
         web.page["#toolbox"].classes.add("container_visible")
+
+@when("click", toolbox_close_button)
+def toolbox_close_menu():
+    toolbox_menu()
 
 # ===== TRAITEMENT DES ARBRES =====
 # Fonction de traitement de l'arbre (utilisée par le formulaire et l'historique)

@@ -73,7 +73,7 @@ body {
 /* ===== UTILITAIRES =====*/
 /* Classe pour masquer des éléments dynamiquement */
 .display_none {
-    display: none;
+    display: none !important;
 }
 
 /* ===== ARRIÈRE PLAN ANIMÉ =====*/
@@ -138,7 +138,7 @@ nav h1 {
 }
 
 /* Bouton de paramètres masqué sur desktop, visible en responsive */
-#nav_settings {
+#nav_settings, #nav_close_settings {
     display: none;
 }
 
@@ -218,7 +218,7 @@ nav p {
     }
 
     /* Afficher le bouton settings en responsive */
-    #nav_settings {
+    #nav_settings, #nav_close_settings {
         display: block;
     }
 }

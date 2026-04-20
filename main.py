@@ -1,7 +1,7 @@
 # Import des modules PyScript pour interagir avec la page web (DOM + évènements)
 from pyscript import web, when, display, document
 # Import des objets JavaScript pour afficher des logs et observer le redimensionnement du SVG
-from js import console, ResizeObserver, window, alert
+from js import console, ResizeObserver, window, alert, confirm
 # Import de l'outil permettant de créer un proxy Python utilisable côté JavaScript
 from pyodide.ffi import create_proxy
 # Import du module d'expressions régulières
@@ -46,6 +46,16 @@ toolbox_close_button = web.page["#nav_close_settings"]
 # Récupération des éléments d'historique
 history_select = web.page["#history_select"]
 history_button = web.page["#history_button"]
+reset_history_button = web.page["#reset_history_button"]
+
+resize_expand = web.page["#resize_expand"]
+resize_compress = web.page["#resize_compress"]
+
+reset_view_button = web.page["#reset_view"]
+reset_all_button = web.page["#reset_all"]
+
+# Espacement horizontal de base entre les nœuds
+esp_x = 20
 
 # ===== INITIALISATION DE L'ARBRE =====
 # Arbre global qui sera mis à jour à chaque génération
@@ -92,13 +102,55 @@ def update_history_select():
 # Initialiser le select au chargement
 update_history_select()
 
+# ===== CONTRÔLES D'ESPACEMENT HORIZONTAL =====
+# Permet de resserrer visuellement les nœuds pour les grands arbres
+@when("click", resize_compress)
+def resize_c():
+    global esp_x
+    esp_x-=2
+    if esp_x < 1:
+        esp_x = 1
+    generate_tree(esp_x)
+    # Recalcule Panzoom après changement d'espacement
+    window.init_panzoom()
+
+# Permet d'aérer visuellement les nœuds pour améliorer la lisibilité
+@when("click", resize_expand)
+def resize_c():
+    global esp_x
+    esp_x+=2
+    generate_tree(esp_x)
+    # Recalcule Panzoom après changement d'espacement
+    window.init_panzoom()
+
 @when("click", toolbox_button)
 def toolbox_menu():
     """Affiche ou masque la boîte à outils (toolbox) en toggleant la classe CSS."""
     if "container_visible" in web.page["#toolbox"].classes:
         web.page["#toolbox"].classes.remove("container_visible")
+        if "display_none" not in toolbox_close_button.classes:
+            toolbox_close_button.classes.add("display_none")
+        if "display_none" in toolbox_button.classes:
+            toolbox_button.classes.remove("display_none")
     else:
         web.page["#toolbox"].classes.add("container_visible")
+        if "display_none" in toolbox_close_button.classes:
+            toolbox_close_button.classes.remove("display_none")
+        if "display_none" not in toolbox_button.classes:
+            toolbox_button.classes.add("display_none")
+
+@when("click", reset_view_button)
+def reset_view():
+    # Recentre et remet le zoom par défaut sans modifier les données de l'arbre
+    window.init_panzoom()
+
+# Réinitialise l'espacement horizontal à la valeur par défaut et recadre la vue
+@when("click", reset_all_button)
+def reset_all():
+    global esp_x
+    esp_x = 20
+    generate_tree(esp_x)
+    reset_view()
 
 @when("click", toolbox_close_button)
 def toolbox_close_menu():
@@ -158,7 +210,9 @@ def process_tree_values(initial_values, tree_type):
         display_browse_type.textContent = ""
 
         # Générer la représentation graphique SVG de l'arbre
-        generate_tree(tree_type)
+        global esp_x
+        reset_view()
+        generate_tree(esp_x)
         
         # Ajouter à l'historique
         add_to_history(initial_values, tree_type)
@@ -210,6 +264,14 @@ def load_from_history():
             # Traiter l'arbre comme s'il avait été saisi dans le formulaire
             process_tree_values(values_str, type_str)
 
+@when("click", reset_history_button)
+def reset_history():
+    # Demande de confirmation pour éviter un effacement accidentel de l'historique
+    if confirm("Êtes vous sûr se vouloir effacer l'historique ?"):
+        # Supprime toutes les entrées sauvegardées puis met à jour l'interface
+        window.localStorage.setItem("tree_history", [])
+        update_history_select()
+
 # ===== GESTION DE LA RECHERCHE =====
 # Événement : Soumission du formulaire de recherche
 @when("submit", form_search)
@@ -228,7 +290,7 @@ def submit_form_search():
     value_clean = re.sub(r"[^0-9,.\-]", "", input_search.value) if input_search.value and input_search.value != "" and input_search.value != "-" else ""
     # Chercher la valeur dans l'arbre
     if value_clean != "" and tree.rechercher(float(value_clean) if "." in value_clean else int(value_clean)):
-        # Ajouter la surbrillance au nœud trouvé
+        # Ajouter la surbrillance au nœud correspondant au texte saisi
         for i in range(len(nodes)):
             if texts[i].textContent == input_search.value:
                 nodes[i].classes.add("tree_node_searched")
@@ -254,7 +316,7 @@ def submit_form_browse():
 
 # ===== GÉNÉRATION DE L'ARBRE GRAPHIQUE =====
 # Fonction de génération de l'arbre dans le SVG (liens + nœuds)
-def generate_tree(type):
+def generate_tree(esp_x):
     """Génère la représentation graphique de l'arbre en SVG avec liens et nœuds positionnés correctement."""
     # Chaînes HTML/SVG qui vont accumuler tous les éléments graphiques
     links = ""
@@ -262,7 +324,7 @@ def generate_tree(type):
 
     # Paramètres d'espacement et de dimensionnement
     esp_y = 100  # Espacement vertical entre les niveaux
-    esp_x = 20   # Espacement horizontal de base entre les nœuds
+    esp_x = esp_x   # Espacement horizontal de base entre les nœuds
     fact = 2     # Facteur multiplicatif pour augmenter l'espacement en profondeur
  
     # Calculer la hauteur de l'arbre pour ajuster les espacements

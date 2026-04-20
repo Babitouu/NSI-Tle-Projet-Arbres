@@ -524,3 +524,9 @@ footer {
     background-clip: text;
     color: transparent;
 }
+
+/* Bouton d'action destructive :
+   conserve le style global mais applique une teinte rouge pour l'effacement d'historique */
+#reset_history_button {
+    background: linear-gradient(135deg, var(--primary), red);
+}
